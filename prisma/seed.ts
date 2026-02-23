@@ -52,6 +52,43 @@ async function main() {
 
   const upcoming = [
     {
+      title: "Meet a Monk: Facing Life’s Defining Choices",
+      startDateTime: iso('2026-03-11T19:00:00-06:00'),
+      endDateTime: iso('2026-03-11T20:30:00-06:00'),
+      location: 'UT Dallas – Founders North (FN) 2.104',
+      tags: ['Meet a Monk', 'Talk', 'Free Dinner'],
+      speakerName: 'Romapada Swami',
+      speakerBio:
+        'Vedic monk & scholar. Fortune 500 guest speaker and university outreach pioneer; inspires study circles and community programs across campuses.',
+      coverImage: '/images/events/facing-lifes-defining-choices.jpg',
+      gallery: [],
+      description:
+        "A beginner-friendly talk on decision-making, clarity, and purpose—followed by Q&A and a free vegetarian dinner. Come as you are; no background needed.",
+      agenda:
+        '- Welcome\n- Talk\n- Q&A\n- Free dinner + meet new friends',
+      faq:
+        'Q: Is this beginner-friendly?\nA: Yes.\n\nQ: Is dinner included?\nA: Yes—free vegetarian dinner.',
+    },
+    {
+      title: 'Meet a Monk: What is Knowledge? (Talk + Q&A)',
+      startDateTime: iso('2026-11-11T19:00:00-06:00'),
+      endDateTime: iso('2026-11-11T20:30:00-06:00'),
+      location: 'UT Dallas – Founders North (FN) 2.104',
+      tags: ['Meet a Monk', 'Talk', 'Free Dinner'],
+      speakerName: 'Romapada Swami',
+      speakerBio:
+        'Vedic monk & scholar. Fortune 500 guest speaker and university outreach pioneer; retreat leader and mentor for young professionals.',
+      coverImage: '/images/events/what-is-knowledge.jpg',
+      gallery: [],
+      description:
+        'A vibrant campus talk exploring what real knowledge is, how to think clearly, and how to build a meaningful life—with free vegetarian dinner included.',
+      agenda:
+        '- Welcome\n- Talk\n- Q&A\n- Free dinner',
+      faq:
+        'Q: Do I need any background?\nA: No.\n\nQ: Can I come with friends?\nA: Yes—bring them!',
+    },
+
+    {
       title: 'Identity Crisis: Who Am I Really? (Beginner Talk + Q&A)',
       startDateTime: new Date(now.getTime() + 3 * day),
       endDateTime: new Date(now.getTime() + 3 * day + 90 * 60 * 1000),

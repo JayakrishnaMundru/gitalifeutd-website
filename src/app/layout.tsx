@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  metadataBase: new URL(siteConfig.url),
+  metadataBase: new URL(process.env.APP_URL || siteConfig.url),
   openGraph: {
     title: siteConfig.name,
     description: siteConfig.description,

@@ -5,7 +5,7 @@ export const siteConfig = {
     'A beginner-friendly Bhakti Yoga student community at UT Dallas—Bhagavad-gita discussions, mantra meditation, kirtan nights, retreats, and service.',
   url: 'https://gitalifeutd.org',
   socials: {
-    instagram: 'https://instagram.com/gitalifeutd',
+    instagram: 'https://instagram.com/gitalifeutd', // @gitalifeutd
     youtube: 'https://youtube.com/@gitalifeutd',
     email: 'gitalifeutd@gmail.com',
   },
