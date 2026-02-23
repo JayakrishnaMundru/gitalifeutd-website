@@ -61,7 +61,11 @@ export default function RootLayout({
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(244,178,71,0.10),transparent_55%),radial-gradient(circle_at_bottom,rgba(11,79,108,0.08),transparent_55%)] dark:bg-[radial-gradient(circle_at_top,rgba(244,178,71,0.08),transparent_55%),radial-gradient(circle_at_bottom,rgba(11,79,108,0.10),transparent_55%)]" />
             </div>
             <SiteHeader />
-            <main className="mx-auto w-full max-w-6xl px-4 py-10">{children}</main>
+            <main className="mx-auto w-full max-w-6xl px-4 py-10">
+              <div className="rounded-[28px] border bg-background/65 p-4 shadow-sm backdrop-blur-md md:p-6">
+                {children}
+              </div>
+            </main>
             <SiteFooter />
           </div>
           <Toaster richColors />

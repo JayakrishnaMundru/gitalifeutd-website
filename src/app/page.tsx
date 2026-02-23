@@ -17,9 +17,10 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-16">
-      <section className="relative overflow-hidden rounded-3xl border bg-gradient-to-br from-amber-50 via-background to-cyan-50 p-8 dark:from-amber-950/20 dark:via-background dark:to-cyan-950/20 md:p-12">
-        <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-gradient-to-br from-amber-400/30 to-cyan-600/30 blur-3xl" />
-        <div className="absolute -left-24 -bottom-24 h-72 w-72 rounded-full bg-gradient-to-br from-cyan-600/25 to-amber-400/25 blur-3xl" />
+      <section className="relative overflow-hidden rounded-3xl border bg-gradient-to-br from-amber-100/70 via-background to-cyan-100/60 p-8 dark:from-amber-900/25 dark:via-background dark:to-cyan-900/25 md:p-12">
+        <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-gradient-to-br from-amber-400/45 to-cyan-600/35 blur-3xl" />
+        <div className="absolute -left-24 -bottom-24 h-80 w-80 rounded-full bg-gradient-to-br from-cyan-600/35 to-amber-400/35 blur-3xl" />
+        <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-fuchsia-500/10 to-amber-400/10 blur-3xl" />
         <div className="relative grid gap-10 md:grid-cols-2 md:items-center">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border bg-background/70 px-3 py-1 text-xs text-muted-foreground">
