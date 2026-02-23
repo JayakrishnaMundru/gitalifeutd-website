@@ -1,14 +1,15 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { PageHero } from '@/components/page-hero'
 
 export default function AboutPage() {
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold">About</h1>
-        <p className="mt-2 text-muted-foreground">
-          GitaLife is a Bhakti Yoga student community centered on Bhagavad‑gītā and Śrīmad‑Bhāgavatam teachings.
-        </p>
-      </div>
+      <PageHero
+        title="About"
+        subtitle="GitaLife is a Bhakti Yoga student community centered on Bhagavad‑gītā and Śrīmad‑Bhāgavatam teachings—welcoming, joyful, and beginner‑friendly."
+        ctaLabel="See programs"
+        ctaHref="/programs"
+      />
 
       <div className="grid gap-4 md:grid-cols-2">
         <Card>

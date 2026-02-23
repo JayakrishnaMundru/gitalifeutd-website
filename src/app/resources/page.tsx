@@ -1,12 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { PageHero } from '@/components/page-hero'
+import { siteConfig } from '@/content/site'
 
 export default function ResourcesPage() {
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold">Resources</h1>
-        <p className="mt-2 text-muted-foreground">Beginner guides, playlists, and downloads.</p>
-      </div>
+      <PageHero
+        title="Resources"
+        subtitle="Start simple: beginner guides, playlists, and downloads to support your weekly practice."
+        ctaLabel="Follow @gitalifeutd"
+        ctaHref={siteConfig.socials.instagram}
+      />
 
       <div className="grid gap-4 md:grid-cols-2">
         <Card>

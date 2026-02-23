@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic'
 
 import Link from 'next/link'
+import { PageHero } from '@/components/page-hero'
 import { redirect } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -19,11 +20,12 @@ export default async function AdminDashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Admin</h1>
-          <p className="text-sm text-muted-foreground">RSVP dashboard and exports.</p>
-        </div>
+      <PageHero
+        title="Admin"
+        subtitle="RSVP dashboard and CSV exports."
+      />
+
+      <div className="flex items-center justify-end">
         <form action={logoutAction}>
           <Button variant="outline" className="rounded-full" type="submit">
             Logout

@@ -3,6 +3,8 @@ export const dynamic = 'force-dynamic'
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import { EventCard } from '@/components/event-card'
+import { PageHero } from '@/components/page-hero'
+import { siteConfig } from '@/content/site'
 
 export default async function EventsPage({
   searchParams,
@@ -35,12 +37,12 @@ export default async function EventsPage({
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold">Events</h1>
-        <p className="mt-2 text-muted-foreground">
-          Join a discussion, a mantra meditation night, a workshop, or a service event.
-        </p>
-      </div>
+      <PageHero
+        title="Events"
+        subtitle="Join a discussion, a mantra meditation night, a workshop, or a service event. Beginner-friendly—bring a friend."
+        ctaLabel="Follow @gitalifeutd"
+        ctaHref={siteConfig.socials.instagram}
+      />
 
       <div className="flex flex-wrap gap-2">
         <Link

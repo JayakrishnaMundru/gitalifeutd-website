@@ -1,13 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { programs } from '@/content/site'
+import { programs, siteConfig } from '@/content/site'
+import { PageHero } from '@/components/page-hero'
 
 export default function ProgramsPage() {
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold">Programs</h1>
-        <p className="mt-2 text-muted-foreground">What we do throughout the semester.</p>
-      </div>
+      <PageHero
+        title="Programs"
+        subtitle="A beginner-friendly path: discussions, meditation through sound, retreats, and service."
+        ctaLabel="See events"
+        ctaHref="/events"
+      />
 
       <div className="grid gap-4 md:grid-cols-2">
         {programs.map((p) => (
