@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -26,15 +28,11 @@ export default async function EventsPage({
     orderBy: { startDateTime: when === 'past' ? 'desc' : 'asc' },
   })
 
-  const allTags = Array.from(
-    new Set(
-      (
-        await prisma.event.findMany({
-          select: { tags: true },
-        })
-      ).flatMap((e) => e.tags)
-    )
-  ).sort()
+  const tagRows = (await prisma.event.findMany({
+    select: { tags: true },
+  })) as Array<{ tags: string[] }>
+
+  const allTags = Array.from(new Set(tagRows.flatMap((e) => e.tags))).sort()
 
   return (
     <div className="space-y-8">
@@ -77,7 +75,7 @@ export default async function EventsPage({
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        {events.map((e) => (
+        {events.map((e: (typeof events)[number]) => (
           <Card key={e.id} className="transition hover:shadow-sm">
             <CardHeader>
               <CardTitle className="text-lg">
@@ -100,7 +98,7 @@ export default async function EventsPage({
             <CardContent className="space-y-3">
               <p className="text-sm text-muted-foreground line-clamp-3">{e.description}</p>
               <div className="flex flex-wrap gap-2">
-                {e.tags.map((t) => (
+                {e.tags.map((t: string) => (
                   <Badge key={t} variant="secondary">
                     {t}
                   </Badge>

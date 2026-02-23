@@ -14,7 +14,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
   const rsvps = await prisma.rSVP.findMany({ where: { eventId: id }, orderBy: { createdAt: 'desc' } })
 
   const csv = Papa.unparse(
-    rsvps.map((r) => ({
+    rsvps.map((r: (typeof rsvps)[number]) => ({
       id: r.id,
       fullName: r.fullName,
       email: r.email,

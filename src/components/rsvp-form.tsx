@@ -24,9 +24,9 @@ const schema = z.object({
   email: z.string().email('Please enter a valid email'),
   phone: z.string().optional(),
   studentStatus: z.enum(['UNDERGRAD', 'GRAD', 'PHD', 'ALUMNI', 'FACULTY', 'STAFF', 'OTHER']),
-  dietaryPreference: z.enum(['VEG', 'VEGAN', 'NO_PREFERENCE', 'OTHER']).default('VEG'),
+  dietaryPreference: z.enum(['VEG', 'VEGAN', 'NO_PREFERENCE', 'OTHER']),
   notes: z.string().max(500).optional(),
-  consent: z.literal(true, { errorMap: () => ({ message: 'Consent is required' }) }),
+  consent: z.boolean().refine((v) => v === true, { message: 'Consent is required' }),
 
   // honeypot
   website: z.string().optional(),

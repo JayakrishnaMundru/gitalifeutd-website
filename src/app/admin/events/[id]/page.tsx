@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { isAdminRequest } from '@/lib/admin-auth'
@@ -41,7 +43,7 @@ export default async function AdminEventRsvpsPage({
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {rsvps.map((r) => (
+                {rsvps.map((r: (typeof rsvps)[number]) => (
                   <TableRow key={r.id}>
                     <TableCell className="font-medium">{r.fullName}</TableCell>
                     <TableCell>{r.email}</TableCell>

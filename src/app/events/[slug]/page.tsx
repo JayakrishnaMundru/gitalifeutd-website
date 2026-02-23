@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Badge } from '@/components/ui/badge'
@@ -68,7 +70,7 @@ export default async function EventDetailPage({
           {event.location}
         </div>
         <div className="flex flex-wrap gap-2">
-          {event.tags.map((t) => (
+          {event.tags.map((t: string) => (
             <Badge key={t} variant="secondary">
               {t}
             </Badge>

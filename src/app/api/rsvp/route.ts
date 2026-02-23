@@ -9,7 +9,7 @@ const schema = z.object({
   email: z.string().email(),
   phone: z.string().optional().nullable(),
   studentStatus: z.enum(['UNDERGRAD', 'GRAD', 'PHD', 'ALUMNI', 'FACULTY', 'STAFF', 'OTHER']),
-  dietaryPreference: z.enum(['VEG', 'VEGAN', 'NO_PREFERENCE', 'OTHER']).default('VEG'),
+  dietaryPreference: z.enum(['VEG', 'VEGAN', 'NO_PREFERENCE', 'OTHER']),
   notes: z.string().max(500).optional().nullable(),
   consent: z.boolean(),
 

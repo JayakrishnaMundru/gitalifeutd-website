@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import Link from 'next/link'
 import { ArrowRight, CalendarDays, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -52,7 +54,7 @@ export default async function HomePage() {
                 {upcoming.length === 0 ? (
                   <p className="text-sm text-muted-foreground">New events will be posted soon.</p>
                 ) : (
-                  upcoming.map((e) => (
+                  upcoming.map((e: (typeof upcoming)[number]) => (
                     <Link
                       key={e.id}
                       href={`/events/${e.slug}`}

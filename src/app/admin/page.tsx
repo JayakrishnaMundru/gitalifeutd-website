@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -30,7 +32,7 @@ export default async function AdminDashboard() {
       </div>
 
       <div className="grid gap-4">
-        {events.map((e) => (
+        {events.map((e: (typeof events)[number]) => (
           <Card key={e.id}>
             <CardHeader>
               <CardTitle className="text-lg">{e.title}</CardTitle>
