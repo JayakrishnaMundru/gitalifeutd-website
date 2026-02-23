@@ -18,19 +18,31 @@ export default async function AdminDashboard() {
     take: 20,
   })
 
+  const resourceCount = await prisma.resource.count()
+  const programCount = await prisma.program.count()
+
   return (
     <div className="space-y-6">
-      <PageHero
-        title="Admin"
-        subtitle="RSVP dashboard and CSV exports."
-      />
+      <PageHero title="Admin" subtitle="Manage events, RSVPs, and site content." />
 
-      <div className="flex items-center justify-end">
-        <form action={logoutAction}>
-          <Button variant="outline" className="rounded-full" type="submit">
-            Logout
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="text-sm text-muted-foreground">
+          Resources: <span className="font-semibold text-foreground">{resourceCount}</span> · Programs:{' '}
+          <span className="font-semibold text-foreground">{programCount}</span>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <Button asChild className="rounded-full">
+            <Link href="/admin/events/new">New event</Link>
           </Button>
-        </form>
+          <Button asChild variant="outline" className="rounded-full">
+            <Link href="/admin/resources">Edit resources</Link>
+          </Button>
+          <form action={logoutAction}>
+            <Button variant="outline" className="rounded-full" type="submit">
+              Logout
+            </Button>
+          </form>
+        </div>
       </div>
 
       <div className="grid gap-4">
