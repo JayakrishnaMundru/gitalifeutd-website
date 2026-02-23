@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { navLinks, siteConfig } from '@/content/site'
 import { ModeToggle } from '@/components/mode-toggle'
+import { MobileNav } from '@/components/mobile-nav'
 
 export function SiteHeader() {
   return (
@@ -24,14 +25,15 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <div className="flex items-center gap-2">
-          <ModeToggle />
+        <div className="flex items-center gap-1">
           <Link
             href="/events"
             className="hidden rounded-full bg-gradient-to-r from-amber-400 to-cyan-600 px-4 py-2 text-sm font-semibold text-black shadow-sm hover:opacity-90 md:inline-block"
           >
-            Explore Events
+            RSVP This Week
           </Link>
+          <ModeToggle />
+          <MobileNav />
         </div>
       </div>
     </header>

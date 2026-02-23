@@ -1,9 +1,8 @@
 export const dynamic = 'force-dynamic'
 
 import Link from 'next/link'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { prisma } from '@/lib/prisma'
+import { EventCard } from '@/components/event-card'
 
 export default async function EventsPage({
   searchParams,
@@ -76,36 +75,16 @@ export default async function EventsPage({
 
       <div className="grid gap-4 md:grid-cols-2">
         {events.map((e: (typeof events)[number]) => (
-          <Card key={e.id} className="transition hover:shadow-sm">
-            <CardHeader>
-              <CardTitle className="text-lg">
-                <Link href={`/events/${e.slug}`} className="hover:underline">
-                  {e.title}
-                </Link>
-              </CardTitle>
-              <div className="text-sm text-muted-foreground">
-                {new Date(e.startDateTime).toLocaleString(undefined, {
-                  weekday: 'short',
-                  month: 'short',
-                  day: 'numeric',
-                  hour: 'numeric',
-                  minute: '2-digit',
-                })}
-                {' · '}
-                {e.location}
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <p className="text-sm text-muted-foreground line-clamp-3">{e.description}</p>
-              <div className="flex flex-wrap gap-2">
-                {e.tags.map((t: string) => (
-                  <Badge key={t} variant="secondary">
-                    {t}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <EventCard
+            key={e.id}
+            title={e.title}
+            slug={e.slug}
+            startDateTime={e.startDateTime}
+            location={e.location}
+            tags={e.tags}
+            description={e.description}
+            coverImage={e.coverImage}
+          />
         ))}
       </div>
 

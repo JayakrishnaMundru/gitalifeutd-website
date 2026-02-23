@@ -27,19 +27,19 @@ export default async function HomePage() {
               Beginner-friendly • Warm community • Practical wisdom
             </div>
             <h1 className="mt-4 text-4xl font-bold tracking-tight md:text-5xl">
-              A joyful student community for Bhagavad‑gītā, mantra meditation, and meaningful friendships.
+              Your weekly reset: wisdom, meditation, music, and friends at UTD.
             </h1>
             <p className="mt-4 text-base text-muted-foreground md:text-lg">
-              {siteConfig.description}
+              Beginner-friendly events with real community energy. Come for one night—leave with calm, clarity, and good people.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Button asChild className="rounded-full bg-gradient-to-r from-amber-400 to-cyan-600 text-black hover:opacity-90">
                 <Link href="/events">
-                  See upcoming events <ArrowRight className="ml-2 h-4 w-4" />
+                  RSVP this week <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild variant="outline" className="rounded-full">
-                <Link href="/programs">Explore programs</Link>
+                <a href={siteConfig.socials.instagram}>Follow @gitalifeutd</a>
               </Button>
             </div>
           </div>
@@ -58,12 +58,12 @@ export default async function HomePage() {
                     <Link
                       key={e.id}
                       href={`/events/${e.slug}`}
-                      className="block rounded-xl border bg-background p-3 transition hover:shadow-sm"
+                      className="block rounded-2xl border bg-background p-3 transition hover:shadow-sm"
                     >
-                      <div className="flex items-start justify-between gap-2">
+                      <div className="flex items-start justify-between gap-3">
                         <div>
-                          <div className="font-semibold">{e.title}</div>
-                          <div className="text-sm text-muted-foreground">
+                          <div className="font-semibold leading-snug">{e.title}</div>
+                          <div className="mt-1 text-xs text-muted-foreground">
                             {new Date(e.startDateTime).toLocaleString(undefined, {
                               weekday: 'short',
                               month: 'short',
@@ -73,9 +73,9 @@ export default async function HomePage() {
                             })}
                           </div>
                         </div>
-                        <Badge variant="secondary" className="shrink-0">
+                        <span className="shrink-0 rounded-full bg-gradient-to-r from-amber-400 to-cyan-600 px-3 py-1 text-xs font-semibold text-black">
                           RSVP
-                        </Badge>
+                        </span>
                       </div>
                     </Link>
                   ))
@@ -124,17 +124,22 @@ export default async function HomePage() {
         ))}
       </section>
 
-      <section className="rounded-3xl border p-8 md:p-12">
+      <section className="rounded-3xl border bg-gradient-to-r from-amber-50/80 to-cyan-50/70 p-8 dark:from-amber-950/20 dark:to-cyan-950/20 md:p-12">
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div>
-            <h2 className="text-2xl font-bold">Join the community</h2>
+            <h2 className="text-2xl font-bold">Bring a friend. Dinner’s usually included.</h2>
             <p className="mt-2 text-muted-foreground">
-              New? Start with one event. Come as you are—no pressure.
+              Low-pressure, high vibes. If you’re new, start with one event this week.
             </p>
           </div>
-          <Button asChild className="rounded-full bg-gradient-to-r from-amber-400 to-cyan-600 text-black hover:opacity-90">
-            <Link href="/events">Find an event</Link>
-          </Button>
+          <div className="flex flex-wrap gap-3">
+            <Button asChild className="rounded-full bg-gradient-to-r from-amber-400 to-cyan-600 text-black hover:opacity-90">
+              <Link href="/events">See events</Link>
+            </Button>
+            <Button asChild variant="outline" className="rounded-full">
+              <a href={siteConfig.socials.instagram}>Follow @gitalifeutd</a>
+            </Button>
+          </div>
         </div>
       </section>
 
