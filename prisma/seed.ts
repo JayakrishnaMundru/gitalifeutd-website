@@ -16,12 +16,7 @@ function slugify(input: string) {
 }
 
 async function main() {
-  // Idempotent seed
-  const existing = await prisma.event.count()
-  if (existing > 0) {
-    console.log(`Seed skipped: ${existing} events already exist.`)
-    return
-  }
+  // Idempotent seed: upsert by slug so re-running updates content and adds new events.
 
   const now = new Date()
   const day = 24 * 60 * 60 * 1000
@@ -290,26 +285,51 @@ async function main() {
     slug: slugify(e.title),
   }))
 
-  await prisma.event.createMany({ data: all })
-
-  // Create a small sample RSVP on the first upcoming event
-  const firstEvent = await prisma.event.findFirst({ orderBy: { startDateTime: 'asc' } })
-  if (firstEvent) {
-    await prisma.rSVP.create({
-      data: {
-        eventId: firstEvent.id,
-        fullName: 'Sample Student',
-        email: 'sample@student.utdallas.edu',
-        phone: '',
-        studentStatus: StudentStatus.UNDERGRAD,
-        dietaryPreference: DietaryPreference.VEG,
-        notes: 'Excited to join! First time.',
-        consent: true,
+  for (const e of all) {
+    await prisma.event.upsert({
+      where: { slug: e.slug },
+      update: {
+        title: e.title,
+        startDateTime: e.startDateTime,
+        endDateTime: e.endDateTime,
+        location: e.location,
+        tags: e.tags,
+        speakerName: e.speakerName,
+        speakerBio: e.speakerBio,
+        coverImage: e.coverImage,
+        gallery: e.gallery,
+        description: e.description,
+        agenda: e.agenda,
+        faq: e.faq,
       },
+      create: e,
     })
   }
 
-  console.log('Seed complete.')
+  // Create a small sample RSVP on the next upcoming event (only if none exist)
+  const existingRsvps = await prisma.rSVP.count()
+  if (existingRsvps === 0) {
+    const firstEvent = await prisma.event.findFirst({
+      where: { startDateTime: { gte: new Date() } },
+      orderBy: { startDateTime: 'asc' },
+    })
+    if (firstEvent) {
+      await prisma.rSVP.create({
+        data: {
+          eventId: firstEvent.id,
+          fullName: 'Sample Student',
+          email: 'sample@student.utdallas.edu',
+          phone: '',
+          studentStatus: StudentStatus.UNDERGRAD,
+          dietaryPreference: DietaryPreference.VEG,
+          notes: 'Excited to join! First time.',
+          consent: true,
+        },
+      })
+    }
+  }
+
+  console.log(`Seed complete. Upserted ${all.length} events.`)
 }
 
 main()
