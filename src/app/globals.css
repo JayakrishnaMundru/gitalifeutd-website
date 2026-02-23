@@ -122,5 +122,11 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* add a subtle page-wide gradient so it doesn't feel flat/white */
+    background-image:
+      radial-gradient(circle at 10% 10%, color-mix(in oklab, #F4B247 18%, transparent) 0%, transparent 45%),
+      radial-gradient(circle at 90% 20%, color-mix(in oklab, #0B4F6C 16%, transparent) 0%, transparent 50%),
+      radial-gradient(circle at 40% 95%, color-mix(in oklab, #F4B247 14%, transparent) 0%, transparent 55%);
+    background-attachment: fixed;
   }
 }

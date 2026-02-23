@@ -52,7 +52,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-dvh bg-background text-foreground">
+          <div className="relative min-h-dvh bg-background text-foreground">
+            {/* Global gradient wash (subtle) */}
+            <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+              <div className="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-gradient-to-br from-amber-400/20 to-cyan-600/20 blur-3xl" />
+              <div className="absolute top-[35vh] -left-40 h-[520px] w-[520px] rounded-full bg-gradient-to-br from-cyan-600/15 to-amber-400/15 blur-3xl" />
+              <div className="absolute -bottom-56 right-[-180px] h-[620px] w-[620px] rounded-full bg-gradient-to-br from-amber-400/15 to-fuchsia-500/10 blur-3xl" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(244,178,71,0.10),transparent_55%),radial-gradient(circle_at_bottom,rgba(11,79,108,0.08),transparent_55%)] dark:bg-[radial-gradient(circle_at_top,rgba(244,178,71,0.08),transparent_55%),radial-gradient(circle_at_bottom,rgba(11,79,108,0.10),transparent_55%)]" />
+            </div>
             <SiteHeader />
             <main className="mx-auto w-full max-w-6xl px-4 py-10">{children}</main>
             <SiteFooter />
