@@ -1,0 +1,69 @@
+// Development fallback schema (SQLite)
+// Use scripts that pass --schema prisma/schema.sqlite.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum StudentStatus {
+  UNDERGRAD
+  GRAD
+  PHD
+  ALUMNI
+  FACULTY
+  STAFF
+  OTHER
+}
+
+enum DietaryPreference {
+  VEG
+  VEGAN
+  NO_PREFERENCE
+  OTHER
+}
+
+model Event {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  startDateTime DateTime
+  endDateTime   DateTime
+  location      String
+  tags          String[]
+  speakerName   String?
+  speakerBio    String?
+  coverImage    String?
+  gallery       String[]
+  description   String
+  agenda        String?
+  faq           String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  rsvps         RSVP[]
+
+  @@index([startDateTime])
+}
+
+model RSVP {
+  id                String            @id @default(cuid())
+  eventId           String
+  fullName          String
+  email             String
+  phone             String?
+  studentStatus     StudentStatus
+  dietaryPreference DietaryPreference @default(VEG)
+  notes             String?
+  consent           Boolean
+  createdAt         DateTime          @default(now())
+
+  event             Event             @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
+  @@index([email])
+}
