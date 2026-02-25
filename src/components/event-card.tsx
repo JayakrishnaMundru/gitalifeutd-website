@@ -21,15 +21,13 @@ export function EventCard(props: Props) {
         <div className="relative aspect-[16/9] w-full bg-muted">
           {props.coverImage ? (
             isExternalUrl(props.coverImage) ? (
-              // Use <img> for external sources (e.g., Google Drive) to avoid Next Image domain config issues.
-              // Admin can paste a Drive "share" URL; we convert to a direct-view URL.
+              // Use <img> for external sources; we proxy via /api/img.
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={resolveImageUrl(props.coverImage)}
                 alt=""
                 className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
                 loading="lazy"
-                referrerPolicy="no-referrer"
               />
             ) : (
               <Image

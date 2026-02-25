@@ -28,7 +28,8 @@ export function resolveGoogleDriveImageUrl(url: string): string {
 export function resolveImageUrl(url: string): string {
   if (!url) return url
   if (isExternalUrl(url)) {
-    return resolveGoogleDriveImageUrl(url)
+    // Proxy external images through our API to avoid Drive hotlink / interstitial issues.
+    return `/api/img?url=${encodeURIComponent(url)}`
   }
   return url
 }
