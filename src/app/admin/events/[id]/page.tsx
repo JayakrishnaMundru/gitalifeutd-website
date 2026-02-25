@@ -37,8 +37,10 @@ export default async function AdminEventRsvpsPage({
                 <TableRow>
                   <TableHead>Name</TableHead>
                   <TableHead>Email</TableHead>
+                  <TableHead>Phone</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Diet</TableHead>
+                  <TableHead>Notes</TableHead>
                   <TableHead>Created</TableHead>
                 </TableRow>
               </TableHeader>
@@ -47,8 +49,12 @@ export default async function AdminEventRsvpsPage({
                   <TableRow key={r.id}>
                     <TableCell className="font-medium">{r.fullName}</TableCell>
                     <TableCell>{r.email}</TableCell>
+                    <TableCell>{r.phone || '—'}</TableCell>
                     <TableCell>{r.studentStatus}</TableCell>
                     <TableCell>{r.dietaryPreference}</TableCell>
+                    <TableCell className="max-w-[220px] truncate" title={r.notes ?? ''}>
+                      {r.notes || '—'}
+                    </TableCell>
                     <TableCell>{new Date(r.createdAt).toLocaleString()}</TableCell>
                   </TableRow>
                 ))}

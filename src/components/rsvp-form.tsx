@@ -63,15 +63,17 @@ export function RSVPForm({ eventId }: { eventId: string }) {
       if (!res.ok) {
         throw new Error(data?.error ?? 'Failed to RSVP')
       }
-      toast.success('RSVP confirmed. See you there!')
-      form.reset({
-        ...form.getValues(),
-        fullName: '',
-        email: '',
-        phone: '',
-        notes: '',
-        website: '',
+      toast.success('RSVP confirmed! Redirecting…')
+
+      const qp = new URLSearchParams({
+        name: values.fullName,
+        id: String(data?.rsvpId ?? ''),
+        slug: String(data?.event?.slug ?? ''),
+        title: String(data?.event?.title ?? ''),
+        when: data?.event?.startDateTime ? String(data.event.startDateTime) : '',
+        where: String(data?.event?.location ?? ''),
       })
+      window.location.href = `/rsvp/success?${qp.toString()}`
     } catch (e: any) {
       toast.error(e?.message ?? 'Something went wrong')
     } finally {

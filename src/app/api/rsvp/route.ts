@@ -59,5 +59,14 @@ export async function POST(req: Request) {
     eventUrl: `/events/${event.slug}`,
   }).catch(() => {})
 
-  return NextResponse.json({ ok: true })
+  return NextResponse.json({
+    ok: true,
+    rsvpId: rsvp.id,
+    event: {
+      slug: event.slug,
+      title: event.title,
+      startDateTime: event.startDateTime,
+      location: event.location,
+    },
+  })
 }
