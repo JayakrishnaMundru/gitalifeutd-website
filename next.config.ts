@@ -1,7 +1,10 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  images: {
+    // Keep Next/Image safe defaults; we render external images via <img>.
+    // If you later want Next/Image optimization for Google Drive, add remotePatterns here.
+  },
+}
 
-export default nextConfig;
+export default nextConfig

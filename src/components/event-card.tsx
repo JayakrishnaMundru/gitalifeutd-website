@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { isExternalUrl, resolveImageUrl } from '@/lib/images'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 
@@ -19,13 +20,26 @@ export function EventCard(props: Props) {
       <Link href={`/events/${props.slug}`} className="block">
         <div className="relative aspect-[16/9] w-full bg-muted">
           {props.coverImage ? (
-            <Image
-              src={props.coverImage}
-              alt=""
-              fill
-              className="object-cover transition duration-300 group-hover:scale-[1.02]"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
+            isExternalUrl(props.coverImage) ? (
+              // Use <img> for external sources (e.g., Google Drive) to avoid Next Image domain config issues.
+              // Admin can paste a Drive "share" URL; we convert to a direct-view URL.
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={resolveImageUrl(props.coverImage)}
+                alt=""
+                className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+                loading="lazy"
+                referrerPolicy="no-referrer"
+              />
+            ) : (
+              <Image
+                src={props.coverImage}
+                alt=""
+                fill
+                className="object-cover transition duration-300 group-hover:scale-[1.02]"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            )
           ) : (
             <div className="h-full w-full bg-gradient-to-br from-amber-200/40 to-cyan-300/30 dark:from-amber-900/20 dark:to-cyan-900/20" />
           )}

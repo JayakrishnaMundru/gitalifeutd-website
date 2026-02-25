@@ -37,6 +37,9 @@ export default async function AdminDashboard() {
           <Button asChild variant="outline" className="rounded-full">
             <Link href="/admin/resources">Edit resources</Link>
           </Button>
+          <Button asChild variant="outline" className="rounded-full">
+            <Link href="/admin/help/images">Image URL help</Link>
+          </Button>
           <form action={logoutAction}>
             <Button variant="outline" className="rounded-full" type="submit">
               Logout
