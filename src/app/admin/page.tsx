@@ -57,10 +57,16 @@ export default async function AdminDashboard() {
             <CardContent className="flex flex-wrap items-center justify-between gap-3">
               <div className="text-sm">
                 RSVPs: <span className="font-semibold">{e._count.rsvps}</span>
+                <span className="ml-2 text-xs text-muted-foreground">
+                  {e.published ? 'Published' : 'Draft'}
+                </span>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <Button asChild variant="outline" className="rounded-full">
-                  <Link href={`/admin/events/${e.id}`}>View RSVPs</Link>
+                  <Link href={`/admin/events/${e.id}/edit`}>Edit</Link>
+                </Button>
+                <Button asChild variant="outline" className="rounded-full">
+                  <Link href={`/admin/events/${e.id}`}>RSVP list</Link>
                 </Button>
                 <Button asChild className="rounded-full">
                   <a href={`/admin/events/${e.id}/export.csv`}>Export CSV</a>

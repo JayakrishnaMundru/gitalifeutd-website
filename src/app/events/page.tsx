@@ -24,6 +24,7 @@ export default async function EventsPage({
   const events = await prisma.event.findMany({
     where: {
       ...where,
+      published: true,
       ...(tag ? { tags: { has: tag } } : {}),
     },
     orderBy: { startDateTime: when === 'past' ? 'desc' : 'asc' },

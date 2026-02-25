@@ -16,7 +16,7 @@ export default async function EventDetailPage({
 }) {
   const { slug } = await params
   const event = await prisma.event.findUnique({ where: { slug } })
-  if (!event) return notFound()
+  if (!event || !event.published) return notFound()
 
   const jsonLd = {
     '@context': 'https://schema.org',
