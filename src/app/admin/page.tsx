@@ -8,8 +8,13 @@ import { Button } from '@/components/ui/button'
 import { prisma } from '@/lib/prisma'
 import { isAdminRequest } from '@/lib/admin-auth'
 
-export default async function AdminDashboard() {
+export default async function AdminDashboard({
+  searchParams,
+}: {
+  searchParams: Promise<{ toast?: string }>
+}) {
   const ok = await isAdminRequest()
+  const sp = await searchParams
   if (!ok) redirect('/admin/login')
 
   const events = await prisma.event.findMany({
@@ -21,8 +26,24 @@ export default async function AdminDashboard() {
   const resourceCount = await prisma.resource.count()
   const programCount = await prisma.program.count()
 
+  const toastMsg =
+    sp.toast === 'event-created'
+      ? 'Event created'
+      : sp.toast === 'event-deleted'
+        ? 'Event deleted'
+        : sp.toast === 'resource-created'
+          ? 'Resource created'
+          : sp.toast === 'resource-saved'
+            ? 'Resource saved'
+            : sp.toast === 'resource-deleted'
+              ? 'Resource deleted'
+              : undefined
+
+  const { ToastOnLoad } = await import('@/components/toast-on-load')
+
   return (
     <div className="space-y-6">
+      <ToastOnLoad message={toastMsg} />
       <PageHero title="Admin" subtitle="Manage events, RSVPs, and site content." />
 
       <div className="flex flex-wrap items-center justify-between gap-3">

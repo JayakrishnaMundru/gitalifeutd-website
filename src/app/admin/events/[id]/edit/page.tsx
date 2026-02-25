@@ -12,18 +12,35 @@ export const dynamic = 'force-dynamic'
 
 export default async function AdminEventEditPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>
+  searchParams: Promise<{ toast?: string }>
 }) {
   const ok = await isAdminRequest()
   if (!ok) redirect('/admin/login')
 
   const { id } = await params
+  const sp = await searchParams
   const event = await prisma.event.findUnique({ where: { id } })
   if (!event) redirect('/admin')
 
+  const toastMsg =
+    sp.toast === 'saved'
+      ? 'Event saved'
+      : sp.toast === 'published'
+        ? 'Event published'
+        : sp.toast === 'unpublished'
+          ? 'Event unpublished'
+          : sp.toast === 'deleted'
+            ? 'Event deleted'
+            : undefined
+
+  const { ToastOnLoad } = await import('@/components/toast-on-load')
+
   return (
     <div className="space-y-8">
+      <ToastOnLoad message={toastMsg} />
       <PageHero title="Edit Event" subtitle={event.title} />
 
       <Card>
@@ -115,23 +132,23 @@ export default async function AdminEventEditPage({
               <Button type="button" variant="outline" className="rounded-full" asChild>
                 <a href="/admin">Back</a>
               </Button>
-              <form action={togglePublishAction}>
-                <input type="hidden" name="id" value={event.id} />
-                <Button type="submit" variant="secondary" className="rounded-full">
-                  {event.published ? 'Unpublish' : 'Publish'}
-                </Button>
-              </form>
             </div>
           </form>
 
-          <div className="mt-8">
+          <div className="mt-6 flex flex-wrap gap-3">
+            <form action={togglePublishAction}>
+              <input type="hidden" name="id" value={event.id} />
+              <Button type="submit" variant="secondary" className="rounded-full">
+                {event.published ? 'Unpublish' : 'Publish'}
+              </Button>
+            </form>
             <form action={deleteEventAction}>
               <input type="hidden" name="id" value={event.id} />
               <Button type="submit" variant="destructive" className="rounded-full">
                 Delete event
               </Button>
             </form>
-            <p className="mt-2 text-xs text-muted-foreground">
+            <p className="w-full text-xs text-muted-foreground">
               Deleting an event will also delete its RSVPs.
             </p>
           </div>
@@ -193,7 +210,7 @@ async function updateEventAction(formData: FormData) {
     },
   })
 
-  redirect(`/admin`) 
+  redirect(`/admin/events/${id}/edit?toast=saved`)
 }
 
 async function togglePublishAction(formData: FormData) {
@@ -206,8 +223,9 @@ async function togglePublishAction(formData: FormData) {
   const event = await prisma.event.findUnique({ where: { id } })
   if (!event) redirect('/admin')
 
-  await prisma.event.update({ where: { id }, data: { published: !event.published } })
-  redirect(`/admin/events/${id}/edit`)
+  const nextPublished = !event.published
+  await prisma.event.update({ where: { id }, data: { published: nextPublished } })
+  redirect(`/admin/events/${id}/edit?toast=${nextPublished ? 'published' : 'unpublished'}`)
 }
 
 async function deleteEventAction(formData: FormData) {
@@ -218,5 +236,5 @@ async function deleteEventAction(formData: FormData) {
   const { prisma } = await import('@/lib/prisma')
   const id = String(formData.get('id') ?? '')
   await prisma.event.delete({ where: { id } })
-  redirect('/admin')
+  redirect('/admin?toast=event-deleted')
 }

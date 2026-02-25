@@ -154,5 +154,5 @@ async function createEventAction(formData: FormData) {
     },
   })
 
-  redirect(`/admin`) 
+  redirect(`/admin?toast=event-created`) 
 }
