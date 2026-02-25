@@ -74,6 +74,11 @@ export default async function RsvpSuccessPage({
               Bring a friend, come a few minutes early, and say hi to the organizers. If you’re new, you’re exactly who this is for.
             </p>
             <div className="flex flex-wrap gap-3">
+              {slug ? (
+                <Button asChild variant="outline" className="rounded-full">
+                  <a href={`/api/events/${slug}/ics`}>Add to calendar (ICS)</a>
+                </Button>
+              ) : null}
               <Button asChild className="rounded-full bg-gradient-to-r from-amber-400 to-cyan-600 text-black hover:opacity-90">
                 <Link href="/events">
                   Explore more events <ArrowRight className="ml-2 h-4 w-4" />
