@@ -67,3 +67,13 @@ model RSVP {
   @@index([eventId])
   @@index([email])
 }
+
+model Subscriber {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  name           String?
+  source         String?
+  confirmed      Boolean   @default(true)
+  unsubscribedAt DateTime?
+  createdAt      DateTime  @default(now())
+}

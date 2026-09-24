@@ -1,10 +1,24 @@
 import Link from 'next/link'
 import { siteConfig } from '@/content/site'
+import { NewsletterForm } from '@/components/newsletter-form'
 
 export function SiteFooter() {
   return (
     <footer className="border-t">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-3">
+      <div className="mx-auto max-w-6xl px-4 py-10">
+        <div className="rounded-3xl border bg-gradient-to-br from-amber-100/60 via-card to-cyan-100/50 p-6 dark:from-amber-900/20 dark:to-cyan-900/20 md:p-8">
+          <div className="flex flex-col items-start justify-between gap-5 md:flex-row md:items-center">
+            <div className="max-w-md">
+              <h3 className="font-serif text-2xl font-semibold">Stay connected</h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Get new reflections, stories, and event updates in your inbox. Free, and unsubscribe anytime.
+              </p>
+            </div>
+            <NewsletterForm source="footer" className="w-full max-w-md" />
+          </div>
+        </div>
+      </div>
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 pb-10 md:grid-cols-3">
         <div>
           <div className="flex items-center gap-2 font-semibold">
             <span className="h-8 w-8 rounded-xl bg-gradient-to-br from-amber-400 to-cyan-600" />
