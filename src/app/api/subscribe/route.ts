@@ -47,15 +47,23 @@ export async function POST(req: Request) {
   if (env.RESEND_API_KEY && env.EMAIL_FROM) {
     try {
       const resend = new Resend(env.RESEND_API_KEY)
-      await resend.emails.send({
+      const { data, error } = await resend.emails.send({
         from: env.EMAIL_FROM,
         to: email,
         subject: `Welcome to ${siteConfig.name} Reflections`,
         text: `Thanks for subscribing to ${siteConfig.name}!\n\nYou'll receive our latest spiritual reflections, stories, and event updates. Hare Krishna.\n\n— The ${siteConfig.name} team`,
       })
-    } catch {
-      // Ignore email errors—subscription already succeeded.
+      if (error) {
+        console.error('[subscribe] Resend rejected the welcome email:', error)
+      } else {
+        console.log('[subscribe] Welcome email sent:', data?.id)
+      }
+    } catch (e) {
+      // Never block the subscription on an email failure—just log it.
+      console.error('[subscribe] Failed to send welcome email:', e)
     }
+  } else {
+    console.warn('[subscribe] Welcome email skipped: RESEND_API_KEY and/or EMAIL_FROM not set.')
   }
 
   return NextResponse.json({ ok: true })
