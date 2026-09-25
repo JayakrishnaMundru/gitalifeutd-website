@@ -12,6 +12,8 @@ type Props = {
   title: string
   excerpt: string
   coverImage?: string
+  /** 'contain' shows the whole image uncropped; 'cover' fills a banner and crops. */
+  coverFit?: 'contain' | 'cover'
   date: string
   readTime: string
   tags?: string[]
@@ -99,13 +101,25 @@ export function ArticleView(props: Props) {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, ease, delay: 0.05 }}
         >
-          {/* object-contain + natural height: the full image is always shown, never cropped, at every screen size. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={isExternalUrl(props.coverImage) ? resolveImageUrl(props.coverImage) : props.coverImage}
-            alt={props.title}
-            className="h-auto w-full max-w-xl rounded-3xl border object-contain shadow-sm"
-          />
+          {props.coverFit === 'cover' ? (
+            // Banner mode: fill a wide frame and crop to fit.
+            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border shadow-sm">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={isExternalUrl(props.coverImage) ? resolveImageUrl(props.coverImage) : props.coverImage}
+                alt={props.title}
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+          ) : (
+            // Full mode: show the whole image uncropped at any screen size.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={isExternalUrl(props.coverImage) ? resolveImageUrl(props.coverImage) : props.coverImage}
+              alt={props.title}
+              className="h-auto w-full max-w-xl rounded-3xl border object-contain shadow-sm"
+            />
+          )}
         </motion.figure>
       )}
 

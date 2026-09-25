@@ -105,3 +105,25 @@ model Subscriber {
   unsubscribedAt DateTime?
   createdAt      DateTime  @default(now())
 }
+
+model Article {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  title         String
+  excerpt       String
+  content       String
+  coverImage    String?
+  coverFit      String   @default("contain")
+  authorName    String
+  authorPicture String?
+  authorRole    String?
+  authorBio     String?
+  tags          String[]
+  date          DateTime
+  readTime      String?
+  published     Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([date])
+}

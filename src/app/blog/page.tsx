@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/page-hero'
 import { BlogList, type ArticleCardData } from '@/components/blog-list'
-import { getAllArticles } from '@/content/articles'
+import { listPublishedArticles, readTimeFor } from '@/lib/articles'
 import { siteConfig } from '@/content/site'
+
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Reflections',
@@ -10,16 +12,18 @@ export const metadata: Metadata = {
     'Spiritual reflections, stories, and insights written by the GitaLife student community.',
 }
 
-export default function BlogPage() {
-  const articles: ArticleCardData[] = getAllArticles().map((a) => ({
+export default async function BlogPage() {
+  const rows = await listPublishedArticles()
+
+  const articles: ArticleCardData[] = rows.map((a) => ({
     slug: a.slug,
     title: a.title,
     excerpt: a.excerpt,
-    coverImage: a.coverImage,
-    date: a.date,
-    readTime: a.readTime,
+    coverImage: a.coverImage ?? undefined,
+    date: a.date.toISOString(),
+    readTime: readTimeFor(a),
     tags: a.tags,
-    author: { name: a.author.name, picture: a.author.picture, role: a.author.role },
+    author: { name: a.authorName, picture: a.authorPicture ?? undefined, role: a.authorRole ?? undefined },
   }))
 
   return (

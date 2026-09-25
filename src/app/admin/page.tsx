@@ -25,6 +25,7 @@ export default async function AdminDashboard({
 
   const resourceCount = await prisma.resource.count()
   const programCount = await prisma.program.count()
+  const articleCount = await prisma.article.count()
 
   const toastMsg =
     sp.toast === 'event-created'
@@ -48,11 +49,18 @@ export default async function AdminDashboard({
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="text-sm text-muted-foreground">
-          Resources: <span className="font-semibold text-foreground">{resourceCount}</span> · Programs:{' '}
+          Reflections: <span className="font-semibold text-foreground">{articleCount}</span> · Resources:{' '}
+          <span className="font-semibold text-foreground">{resourceCount}</span> · Programs:{' '}
           <span className="font-semibold text-foreground">{programCount}</span>
         </div>
         <div className="flex flex-wrap gap-2">
           <Button asChild className="rounded-full">
+            <Link href="/admin/articles/new">New reflection</Link>
+          </Button>
+          <Button asChild variant="outline" className="rounded-full">
+            <Link href="/admin/articles">Edit reflections</Link>
+          </Button>
+          <Button asChild variant="outline" className="rounded-full">
             <Link href="/admin/events/new">New event</Link>
           </Button>
           <Button asChild variant="outline" className="rounded-full">
